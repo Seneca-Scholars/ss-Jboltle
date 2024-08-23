@@ -1,22 +1,17 @@
-const sqlite3 = require('sqlite3');
 const express = require('express');
+const data = require('./data.json')
+const apiRequests = (data) => {
+
+
 
 
 const app = express();
 const port = 3000;
 
-const apiURL = 'https://jsonplaceholder.typicode.com/photos';
 
-let data;
 
-const fetchData = async () => {
 
-    const response = await fetch(apiURL);
-    data = await response.json(); 
-    console.log('Data fetched and cached.', data);
-  } 
 
-fetchData(); 
 
 
 app.get('/', (req, res) => {
@@ -24,70 +19,66 @@ app.get('/', (req, res) => {
     res.send(data);
   
 })
+let name;
 
-const apiTitle = (data) => {
+const dataName = (data) => {
   
-    const titles = data.map(item => item.title);
-    titles.forEach(title => console.log(title));
-    return titles;
-
-    console.error('Error fetching titles:', error);
+    const name = data.map(item => item.name); 
+    return name;
   
 };
 
-const apiID = (data) => {
+
+
+const dataID = (data) => {
 
     const ids = data.map(item => item.id);
-    ids.forEach(id => console.log(id));
+
     return ids;
 
 
   }
 
+const dataCategory = (data) => {
+    const category = data.map(item => item.category);
 
-const apiImageURL = (data) => {
-    const urls = data.map(item => item.url);
-    return urls
+    return category
 };
-const apiImageURLID = () => {
+const dataOrder = (data) => {
 
-  const urlEndPath = '/600/'; 
-  return data.map(item => {
-    const url = item.url;
-    const startIndex = url.indexOf(urlEndPath) + urlEndPath.length; 
-    return url.slice(startIndex); 
-  })
+  const order = data.map(item => item.order)
+  return order
 }
-
-
-app.get('/title', (req, res) => {
-
-    const titles = apiTitle(data);
-    res.send(titles);
-
-});
 
 
 app.get('/id', (req, res) => {
 
-    const ids = apiID(data);
-    res.send(ids);
+    const name = dataName(data);
+    res.send(name);
+
+});
+
+
+app.get('/name', (req, res) => {
+
+    const name = dataName(data);
+    res.send(name);
 
 
 });
 
-app.get('/image-url', (req, res) => {
+app.get('/category', (req, res) => {
 
-    const urls = apiImageURL(data); 
-    res.send(urls); 
+    const category = dataCategory(data); 
+    res.send(category); 
  
 });
 
 
-app.get('/image-url/ids', (req, res) => {
+app.get('/order', (req, res) => {
 
-    const ids = apiImageURLID(data); 
-    res.send(ids); 
+  const order = dataOrder(data); 
+  res.send(order); 
   
 });
   
@@ -96,3 +87,7 @@ app.get('/image-url/ids', (req, res) => {
 app.listen(port, () => {
   console.log(`App listening on port ${port}`);
 });
+}
+
+
+export default apiRequests(data)
