@@ -2,6 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Route, Routes, Switch } from 'react-router-dom';
 import React from 'react'
+import { ApiNameFetch } from './apiComponent';
+
 function App() {
   return (
 
@@ -14,25 +16,37 @@ function App() {
 </h1>
 
 <span className='top-nav-bar'>
-<a className='image-url-page' href='/image-url'>Image Url</a>
 
-<a className='image-url-id-page' href='/image-url/ids'>URL ID</a>
-<a className='api-title-page' href='/image-url'> Title</a>
-<a className='home-page' href='/'>Home</a>
-<a className='submit-data-page' href='/submit'>Submit Data</a>
+  
+<a className='link' href='/name'>Name</a>
+
 </span>
 
 
 
 <BrowserRouter>
+
+
 <Routes>
 
+{/**
+ * for example, when the route /category is hit, the stuff inside the element prop is what renders when the route is hit. 
+ * make a component for each route that fetches the data for that specifif route. 
+ * 
+ */}
 
-<Route path='/submit'>
+
+<Route path='/category'/>
+
+<Route path='/order'/>
 
 
-    
-    </Route>
+<Route element={<ApiNameFetch/>} path='/name'/>
+
+<Route path='/id'/>
+
+<Route path='/submit'/>
+
 
 
 </Routes>
