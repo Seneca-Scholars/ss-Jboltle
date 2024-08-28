@@ -1,30 +1,30 @@
 
 import { useEffect } from "react"
 import { useState } from "react";
-  export const ApiNameFetch = () => {
+
+
+
+//we pass in endpoint as a prop from ./app 
+//it auto imports the state variable. 
+  export const ApiNameFetch = ({endPoint}) => {
     
     
-    
+
     
     
    const [apiData, setApiData] = useState([]);
     useEffect( () => {
-        const fetchData = () => {
+        const fetchData = async () => {
+          console.log(endPoint)
+            const response = await fetch(`/api/${endPoint}`)
 
-            fetch('/api')
-            .then(response => response.json())
-            .then(data => {
-              console.log(data);
-              setApiData(data)
-              // Set the fetched user object
-            })
-            .catch(error => {
-              console.error('Error fetching data:', error);
-            });
+            let data = await response.json()
+                console.log(data)
+                setApiData(data)
             }
             fetchData()
                
-    }, [])
+    }, [endPoint])//the brackets represent the onChange for the use effect, so we pass in the state variable and when the state variable changes, the effect is rendered again
         return (
                 <div>
 
@@ -32,10 +32,7 @@ import { useState } from "react";
 
 
                         {
-          // Example of displaying data
-          apiData.map((item, index) => (
-            <div key={index}>{JSON.stringify(item)}</div>
-          ))
+          JSON.stringify(apiData)
         }
                             </p>
                     
