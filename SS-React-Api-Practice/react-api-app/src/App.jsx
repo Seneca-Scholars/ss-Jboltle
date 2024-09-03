@@ -1,20 +1,19 @@
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import React from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
+import React, { useState, useEffect } from "react";
 import { ApiNameFetch } from "./apiComponent";
-import { useState } from "react";
 
-function App() {
+function AppContent() {
   const [endPoint, setEndpoint] = useState("");
+  const location = useLocation();
+
+  useEffect(() => {
+    setEndpoint(location.pathname); 
+//basically the location react hook returns an object that has a bunch of stuff lilke query pramereters, and other stuff but we use it here for the path name which looks like "/abc"
 
 
-  const clickHandler = (event, value) => {
-
-    setEndpoint(value); 
-    console.log(endPoint)
-  //this sets the endpoint to the route path thats passed in to the second parameter option
-  };
-
+  }, [location]);//we pass location as a dependency becauser it can change based on what we click.
+                //before we used endpoint as a dependency and set the endpoint based on a click but somehting was fricking wrong with it and idk wy
 
   return (
     <div>
@@ -23,65 +22,45 @@ function App() {
       <span className="top-nav-bar">
         <a
           className="link"
-          onClick={(event) => clickHandler(event, "/name")}
           href="/name"
         >
           Name
         </a>
         <a
           className="link"
-          onClick={(event) => clickHandler(event, "/id")}
           href="/id"
         >
           ID
         </a>
         <a
           className="link"
-          onClick={(event) => clickHandler(event, "/order")}
-
           href="/order"
         >
           Order
         </a>
         <a
           className="link"
-          onClick={(event) => clickHandler(event, "/category")}
           href="/category"
         >
           Category
         </a>
       </span>
 
-      <BrowserRouter>
-        <Routes>
-
-
-
-          {/**
-           * for example, when the route /category is hit, the stuff inside the element prop is what renders when the route is hit.
-           * make a component for each route that fetches the data for that specifif route.
-           *
-           */}
-
-          {/* figure out how to store whatever route is being clicked into a variable and then pass that 
-into the apiComponnet.jsx fetch request parameter so that it fetches based on what api you want to click.  */}
-
-
-
-
-
-            {/* we passed in the endpoint as endpoint which is like a prop so that this gets used 
-            in the component, the two files are using each other which im not sure is best practice, 
-            but i figured it out on my own so im happy about it and i dont care.  */}
-          <Route path="/category"element={<ApiNameFetch endPoint={endPoint} />} />
-          <Route path="/order" element={<ApiNameFetch endPoint={endPoint} />} />
-          <Route path="/name" element={<ApiNameFetch endPoint={endPoint} />} />
-          <Route path="/id" element={<ApiNameFetch endPoint={endPoint} />} />
-
-          <Route path="/submit" />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/category" element={<ApiNameFetch endPoint={endPoint} />} />
+        <Route path="/order" element={<ApiNameFetch endPoint={endPoint} />} />
+        <Route path="/name" element={<ApiNameFetch endPoint={endPoint} />} />
+        <Route path="/id" element={<ApiNameFetch endPoint={endPoint} />} />
+      </Routes>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
   );
 }
 
