@@ -1,50 +1,29 @@
+import { useState, useEffect } from 'react';
 
-import { useEffect } from "react"
-import { useState } from "react";
+export const ApiNameFetch = ({ endPoint }) => {
+  const [apiData, setApiData] = useState();
 
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!endPoint) return; // Don't run if endPoint is not set
+      console.log(endPoint);
+      try {
+        const response = await fetch(`http://localhost:3001/api${endPoint}`);
+        const data = await response.json();
+        console.log(data);
+        setApiData(data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
 
+    fetchData();
+  }, [endPoint]); // Dependency array, useEffect runs when endPoint changes
 
-//we pass in endpoint as a prop from ./app 
-//it auto imports the state variable. 
-  export const ApiNameFetch = ({endPoint}) => {
-    
-    
-
-    
-    
-   const [apiData, setApiData] = useState([]);
-    useEffect( () => {
-        const fetchData = async () => {
-          console.log(endPoint)
-            const response = await fetch(`/api/${endPoint}`)
-
-            let data = await response.json()
-                console.log(data)
-                setApiData(data)
-            }
-            fetchData()
-               
-    }, [endPoint])//the brackets represent the onChange for the use effect, so we pass in the state variable and when the state variable changes, the effect is rendered again
-        return (
-                <div>
-
-                        <p>
-
-
-                        {
-          JSON.stringify(apiData)
-        }
-                            </p>
-                    
-
-                        
-
-                </div>
-
-        )
-
-
-
-}
-
+  return (
+    <div>
+      <p>{JSON.stringify(apiData)}</p>
+    </div>
+  );
+};
 

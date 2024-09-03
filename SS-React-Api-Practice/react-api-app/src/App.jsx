@@ -7,6 +7,7 @@ import { useState } from "react";
 function App() {
   const [endPoint, setEndpoint] = useState("");
 
+
   const clickHandler = (event, value) => {
 
     setEndpoint(value); 
@@ -55,7 +56,7 @@ function App() {
         <Routes>
 
 
-          
+
           {/**
            * for example, when the route /category is hit, the stuff inside the element prop is what renders when the route is hit.
            * make a component for each route that fetches the data for that specifif route.
