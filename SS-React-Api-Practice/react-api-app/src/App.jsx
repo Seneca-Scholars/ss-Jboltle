@@ -1,10 +1,10 @@
 import "./App.css";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useSearchParams } from "react-router-dom";
 import React from "react";
 
 import { ThingComponent } from "./thingComponent";
 const App = () => {
-
+  
 
 
 
