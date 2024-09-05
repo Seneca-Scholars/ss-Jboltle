@@ -1,19 +1,24 @@
 import "./App.css";
-import { Route, Routes, useSearchParams } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import React from "react";
 
 import { ThingComponent } from "./thingComponent";
+import { GameComponent } from "./gameComponent";
 const App = () => {
-  
+
 
 
 
   return (
 
+
     
 
     <Routes>
-  <Route path="/thing" element={<ThingComponent/>}/>
+
+
+  <Route path="/things" element={<ThingComponent/>}/>
+  <Route path="/games" element={<GameComponent/>}/>
 </Routes>
 )
 
