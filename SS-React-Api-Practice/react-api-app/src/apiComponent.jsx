@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-
+import gameComponent from "./"
 export const ApiNameFetch = ({ endPoint }) => {
   const [apiData, setApiData] = useState(null);
 
