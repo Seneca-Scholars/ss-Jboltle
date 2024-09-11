@@ -1,0 +1,95 @@
+
+[
+    {
+      "id": 1,
+      "title": "The Legend of Zelda: Breath of the Wild",
+      "genre": "Action-Adventure",
+      "platform": "Nintendo Switch",
+      "link": "https://www.nintendo.com/us/store/products/the-legend-of-zelda-breath-of-the-wild-switch/?srsltid=AfmBOorLwN1Qa4lqcxe025oqfawfjBIQZteNmDKJv7JS-jhrS3crotCd",
+      "release_year": 2017,
+      "rating": 9.8
+    },
+    {
+      "id": 2,
+      "title": "God of War",
+      "genre": "Action-Adventure",
+      "platform": "PlayStation 4",
+      "release_year": 2018,
+      "link": "https://www.playstation.com/en-us/games/god-of-war-ragnarok/#buy-now",
+      "rating": 9.7
+    },
+    {
+      "id": 3,
+      "title": "Minecraft",
+      "genre": "Sandbox",
+      "platform": "Multiple",
+      "release_year": 2011,
+      "link": "https://www.minecraft.net/en-us/store/minecraft-deluxe-collection-pc",
+      
+      "rating": 9.5
+    },
+    {
+      "id": 4,
+      "title": "The Witcher 3: Wild Hunt",
+      "genre": "Role-Playing",
+      "platform": "Multiple",
+      "release_year": 2015,
+      "link": "https://buy.thewitcher.com/en_us/",
+      "rating": 9.6
+    },
+    {
+      "id": 5,
+      "title": "Red Dead Redemption 2",
+      "genre": "Action-Adventure",
+      "platform": "Multiple",
+      "release_year": 2018,
+      "link": "https://store.rockstargames.com/game/buy-red-dead-redemption-2",
+      "rating": 9.7
+    },
+    {
+      "id": 6,
+      "title": "Overwatch",
+      "genre": "First-Person Shooter",
+      "platform": "Multiple",
+      "release_year": 2016,
+      "link": "https://us.shop.battle.net/en-us/product/overwatch",
+      "rating": 9.2
+    },
+    {
+      "id": 7,
+      "title": "Fortnite",
+      "genre": "Battle Royale",
+      "platform": "Multiple",
+      "release_year": 2017,
+      "link": "https://www.fortnite.com/?lang=en-US",
+      "rating": 8.9
+    },
+    {
+      "id": 8,
+      "title": "Among Us",
+      "genre": "Party",
+      "platform": "Multiple",
+      "release_year": 2018,
+      "link": "https://www.innersloth.com/games/among-us/",
+      "rating": 8.1
+    },
+    {
+      "id": 9,
+      "title": "Cyberpunk 2077",
+      "genre": "Role-Playing",
+      "platform": "Multiple",
+      "release_year": 2020,
+      "link": "https://www.cyberpunk.net/us/en/buy",
+      "rating": 7.5
+    },
+    {
+      "id": 10,
+      "title": "Animal Crossing: New Horizons",
+      "genre": "Simulation",
+      "platform": "Nintendo Switch",
+      "release_year": 2020,
+      "link": "https://animalcrossing.nintendo.com/",
+      "rating": 9.3
+    }
+  ]
+  
