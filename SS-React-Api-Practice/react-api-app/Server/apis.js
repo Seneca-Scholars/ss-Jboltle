@@ -10,6 +10,12 @@ app.get("/", (req, res) => {
     res.send("Hello");
 });
 
+
+app.get("/games/maps" , (req, res ) => {
+
+res.send(games)
+
+}) 
 app.get("/things", (req, res) => {
     res.send(things);
     console.log(things);

@@ -4,7 +4,6 @@ import "./gameStyling.css";
 
 export const GameComponent = () => {
   const [games, setGames] = useState([]);
-
   const getGames = async () => {
     const response = await fetch("/api/games");
     const data = await response.json();
@@ -16,9 +15,9 @@ export const GameComponent = () => {
   }, []);
 
   const sortGames = (e) => {
-const id = e 
-    
 
+    
+const id = e
 
 
 //sort rating
