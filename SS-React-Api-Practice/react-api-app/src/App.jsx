@@ -22,6 +22,8 @@ const App = () => {
   <Route path="/map" element={<GoogleMaps/>} />
 
 </Routes>
+
+
 )
 
   

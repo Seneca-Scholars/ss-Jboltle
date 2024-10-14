@@ -42,7 +42,10 @@ export function GoogleMaps() {
         { /* Child components, such as markers, info windows, etc. */ }
         <></>
       </GoogleMap>
-  ) : <></>
+  ) : 
+  <>
+  
+  </>
 }
 
 

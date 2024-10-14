@@ -4,6 +4,9 @@ import "./gameStyling.css";
 
 export const GameComponent = () => {
   const [games, setGames] = useState([]);
+  
+  
+  
   const getGames = async () => {
     const response = await fetch("/api/games");
     const data = await response.json();
@@ -15,6 +18,8 @@ export const GameComponent = () => {
   }, []);
 
   const sortGames = (e) => {
+
+
 
     
 const id = e
@@ -41,6 +46,18 @@ const sortedGenre = [...games].sort((a, b) => a.genre.localeCompare(b.genre));
 
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
   const generateRows = () => {
     return games.map((game) => (
       <tr key={game.id}>
@@ -55,6 +72,9 @@ const sortedGenre = [...games].sort((a, b) => a.genre.localeCompare(b.genre));
       </tr>
     ));
   };
+
+
+  
 
   return (
     <div>
