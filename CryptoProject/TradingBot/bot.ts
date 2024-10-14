@@ -4,7 +4,7 @@ import { getAssociatedTokenAddressSync, TokenInvalidAccountSizeError } from "@so
 import * as fs from 'fs';
 import * as path from 'path';
 import axios from 'axios';
-
+import { tokenValue } from "./index";
 
 
 
@@ -19,6 +19,7 @@ interface ArbBotConfig {
     checkInterval?: number;
     initialInputToken: SwapToken;
     initialInputAmount: number;
+    
 }
 
 interface NextTrade extends QuoteGetRequest {
@@ -42,27 +43,11 @@ interface LogSwapArgs {
 export class ArbBot {
     
 
-    public getTokenInput = () => { 
-        // //this is a public method
-        //  (like used in AP Comp Sci in HighSchool   
-        //     that gets user input then returns that 
-        //     value into a parameter for the bot in
-        //      the infterface )
 
-        const token: string | null = prompt("💰💰Please enter the token you want to trade💰💰")
-        if (!token || token == null || token.length !== 44) {
-    
-            throw new Error ("Invalid token " )
-    
-        }
-    
-        return token
-    }
-    
     private solanaConnection: Connection;
     private jupiterApi: DefaultApi;
     private wallet: Keypair;
-    private inputMint: PublicKey = new PublicKey(this.getTokenInput); 
+    private inputMint: PublicKey = new PublicKey(tokenValue); 
     //takes in a string value that the token input provides. 
     // this the input mint that you want to use, so you can choose any crypto 
     // currency with respect to what is insiede the Jupiter
@@ -111,6 +96,9 @@ this.usdcBalance
 
     
 public  tokenLookup = async () => {
+
+
+
     const tokensPath: string = "./JupiterTokens.json"
     let config = {
         method: 'get',
@@ -124,31 +112,40 @@ public  tokenLookup = async () => {
       
       axios.request(config)
       .then((response) => {
-        if (!fs.existsSync(tokensPath)){
+        if (!fs.existsSync(tokensPath) ){
         fs.writeFileSync(tokensPath, JSON.stringify(response.data))
         }
+
+
         const data = JSON.stringify(fs.readFileSync(tokensPath))
         const tokens = JSON.parse(data)
+
         const tokenList = new Set(tokens)
+        if (tokenList.has(this.inputMint)) {
+            console.log("Token approved with Jupiter API ✅");
+    
+        }
 
+        else {
+            throw new Error("Token does not exist on Jupiter DEX");
+            process.exit(1); // Optional: terminate the program
+        }
+            
 
+    })
+    .catch((error) => {
+console.log("Error fetching Tokens on Jupiter Dex ")
 
-    if (tokenList.has(this.inputMint)) {
-        console.log("Token approved with Jupiter API ✅");
-
-
-    }
-    else {
-        throw new Error("Token does not exist on Jupiter DEX");
-        process.exit(1); // Optional: terminate the program
-    }
-        
-
+    })
+      
+  
+ 
+}
     
         
 
-   
-        }}
+
+        
         
 
 

@@ -52,6 +52,7 @@ var spl_token_1 = require("@solana/spl-token");
 var fs = require("fs");
 var path = require("path");
 var axios_1 = require("axios");
+var index_1 = require("./index");
 var SwapToken;
 (function (SwapToken) {
     SwapToken[SwapToken["SOL"] = 0] = "SOL";
@@ -60,7 +61,11 @@ var SwapToken;
 var ArbBot = /** @class */ (function () {
     function ArbBot(config) {
         var _this = this;
-        this.inputMint = new web3_js_1.PublicKey("HjUryq8W7LsX9Tcpoq1gHBpK9a3RTqLK7QDdFCMJpump");
+        this.inputMint = new web3_js_1.PublicKey(index_1.tokenValue);
+        //takes in a string value that the token input provides. 
+        // this the input mint that you want to use, so you can choose any crypto 
+        // currency with respect to what is insiede the Jupiter
+        //  Tokens json file that contains all valid tokens on  the Jupiter dex.
         this.solMint = new web3_js_1.PublicKey("So11111111111111111111111111111111111111112");
         this.solBalance = 0;
         this.usdcBalance = 0;
@@ -69,9 +74,10 @@ var ArbBot = /** @class */ (function () {
         this.targetGainPercentage = 1;
         this.waitingForConfirmation = false;
         this.tokenLookup = function () { return __awaiter(_this, void 0, void 0, function () {
-            var filePath, config;
+            var tokensPath, config;
+            var _this = this;
             return __generator(this, function (_a) {
-                filePath = "./JupiterTokens.json";
+                tokensPath = "./JupiterTokens.json";
                 config = {
                     method: 'get',
                     maxBodyLength: Infinity,
@@ -82,14 +88,22 @@ var ArbBot = /** @class */ (function () {
                 };
                 axios_1.default.request(config)
                     .then(function (response) {
-                    if (!fs.existsSync(filePath)) {
-                        fs.writeFileSync(filePath, JSON.stringify(response.data));
-                        var data = fs.readFileSync(filePath);
-                        console.log(JSON.stringify(response.data));
+                    if (!fs.existsSync(tokensPath)) {
+                        fs.writeFileSync(tokensPath, JSON.stringify(response.data));
+                    }
+                    var data = JSON.stringify(fs.readFileSync(tokensPath));
+                    var tokens = JSON.parse(data);
+                    var tokenList = new Set(tokens);
+                    if (tokenList.has(_this.inputMint)) {
+                        console.log("Token approved with Jupiter API ✅");
+                    }
+                    else {
+                        throw new Error("Token does not exist on Jupiter DEX");
+                        process.exit(1); // Optional: terminate the program
                     }
                 })
                     .catch(function (error) {
-                    console.log(error);
+                    console.log("Error fetching Tokens on Jupiter Dex ");
                 });
                 return [2 /*return*/];
             });
