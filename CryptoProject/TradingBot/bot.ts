@@ -1,10 +1,10 @@
 import { Keypair, Connection, PublicKey, VersionedTransaction, LAMPORTS_PER_SOL, TransactionInstruction, AddressLookupTableAccount, TransactionMessage, TransactionSignature, TransactionConfirmationStatus, SignatureStatus } from "@solana/web3.js";
 import { createJupiterApiClient, DefaultApi, ResponseError, QuoteGetRequest, QuoteResponse, Instruction, AccountMeta } from '@jup-ag/api';
-import { getAssociatedTokenAddressSync } from "@solana/spl-token";
+import { getAssociatedTokenAddressSync, TokenInvalidAccountSizeError } from "@solana/spl-token";
 import * as fs from 'fs';
 import * as path from 'path';
 import axios from 'axios';
-import { error } from "console";
+
 
 
 
@@ -42,7 +42,12 @@ interface LogSwapArgs {
 export class ArbBot {
     
 
-    public getTokenInput = () => {
+    public getTokenInput = () => { 
+        // //this is a public method
+        //  (like used in AP Comp Sci in HighSchool   
+        //     that gets user input then returns that 
+        //     value into a parameter for the bot in
+        //      the infterface )
 
         const token: string | null = prompt("💰💰Please enter the token you want to trade💰💰")
         if (!token || token == null || token.length !== 44) {
@@ -57,7 +62,11 @@ export class ArbBot {
     private solanaConnection: Connection;
     private jupiterApi: DefaultApi;
     private wallet: Keypair;
-    private inputMint: PublicKey = new PublicKey(this.getTokenInput);
+    private inputMint: PublicKey = new PublicKey(this.getTokenInput); 
+    //takes in a string value that the token input provides. 
+    // this the input mint that you want to use, so you can choose any crypto 
+    // currency with respect to what is insiede the Jupiter
+    //  Tokens json file that contains all valid tokens on  the Jupiter dex.
     private solMint: PublicKey = new PublicKey("So11111111111111111111111111111111111111112");
     private usdcTokenAccount: PublicKey;
     private solBalance: number = 0;
@@ -101,8 +110,8 @@ this.usdcBalance
 
 
     
-private  tokenLookup = async () =>{
-    const filePath: string = "./JupiterTokens.json"
+public  tokenLookup = async () => {
+    const tokensPath: string = "./JupiterTokens.json"
     let config = {
         method: 'get',
         maxBodyLength: Infinity,
@@ -115,33 +124,32 @@ private  tokenLookup = async () =>{
       
       axios.request(config)
       .then((response) => {
-        if (!fs.existsSync(filePath)){
-fs.writeFileSync(filePath, JSON.stringify(response.data))
-    
+        if (!fs.existsSync(tokensPath)){
+        fs.writeFileSync(tokensPath, JSON.stringify(response.data))
+        }
+        const data = JSON.stringify(fs.readFileSync(tokensPath))
+        const tokens = JSON.parse(data)
+        const tokenList = new Set(tokens)
 
-const tokens = fs.readFileSync(filePath )
 
-for (const token in tokens ) {
 
-    if (this.inputMint === console.log("Token approved with Jupiter API ✅")) {
+    if (tokenList.has(this.inputMint)) {
+        console.log("Token approved with Jupiter API ✅");
 
-        return 
+
     }
-    else {throw new Error("Token does not exist on Jupiter DEX"), process.exit(1)}
-}
-}})
-      .catch((error : any) => {
-        console.log(error);
-      });
+    else {
+        throw new Error("Token does not exist on Jupiter DEX");
+        process.exit(1); // Optional: terminate the program
+    }
+        
+
     
+        
 
-
-}
-      
-
-
-
-
+   
+        }}
+        
 
 
     async init(): Promise<void> {
