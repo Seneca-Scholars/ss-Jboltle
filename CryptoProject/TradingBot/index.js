@@ -36,11 +36,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.tokenValue = void 0;
 var web3_js_1 = require("@solana/web3.js");
 var bot_1 = require("./bot");
 var dotenv = require("dotenv");
-var prompt = require("prompt-sync");
 dotenv.config({
     path: ".env",
 });
@@ -48,21 +46,6 @@ var defaultConfig = {
     solanaEndpoint: (0, web3_js_1.clusterApiUrl)("mainnet-beta"),
     jupiter: "https://quote-api.jup.ag/v6",
 };
-var getTokenInput = function () {
-    // //this is a public method
-    //  (like used in AP Comp Sci in HighSchool   
-    //     that gets user input then returns that 
-    //     value into a parameter for the bot in
-    //      the infterface )
-    var input = prompt();
-    var token = input("✅Please enter a valid token✅");
-    if (!token || token == null || token.length !== 44) {
-        console.log(Error, "Invalid token ❌");
-        throw new Error;
-    }
-    return token;
-};
-exports.tokenValue = getTokenInput();
 function main() {
     return __awaiter(this, void 0, void 0, function () {
         var decodedSecretKey, bot;
@@ -74,15 +57,14 @@ function main() {
                         throw new Error("SECRET_KEY environment variable not set");
                     }
                     decodedSecretKey = Uint8Array.from(JSON.parse(process.env.SECRET_KEY));
-                    getTokenInput();
                     bot = new bot_1.ArbBot({
                         solanaEndpoint: (_a = process.env.SOLANA_ENDPOINT) !== null && _a !== void 0 ? _a : defaultConfig.solanaEndpoint,
                         metisEndpoint: (_b = process.env.METIS_ENDPOINT) !== null && _b !== void 0 ? _b : defaultConfig.jupiter,
                         secretKey: decodedSecretKey,
-                        firstTradePrice: 0.11 * web3_js_1.LAMPORTS_PER_SOL,
-                        targetGainPercentage: 1.5,
-                        initialInputToken: bot_1.SwapToken.USDC,
-                        initialInputAmount: 10000000,
+                        firstTradePrice: 0.01 * web3_js_1.LAMPORTS_PER_SOL,
+                        targetGainPercentage: 10,
+                        initialInputToken: bot_1.SwapToken.SOL,
+                        initialInputAmount: 100000000,
                     });
                     return [4 /*yield*/, bot.init()];
                 case 1:

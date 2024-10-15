@@ -4,11 +4,35 @@ import { getAssociatedTokenAddressSync, TokenInvalidAccountSizeError } from "@so
 import * as fs from 'fs';
 import * as path from 'path';
 import axios from 'axios';
-import { tokenValue } from "./index";
+import prompt = require('prompt-sync');
 
 
 
+const  getTokenInput  = () => { 
+    // //this is a public method
+    //  (like used in AP Comp Sci in HighSchool   
+    //     that gets user input then returns that 
+    //     value into a parameter for the bot in
+    //      the infterface )
 
+
+    const input = prompt();
+    const token : string = input ("✅Please enter a valid token✅")
+    
+    
+    if (!token || token == null || token.length !== 44) {
+        
+        console.log(Error , "Invalid token ❌")
+        throw new Error 
+    }
+
+
+    
+
+    return token
+}
+
+const tokenValue =  getTokenInput(); // This gets the user input
 
 interface ArbBotConfig {
     solanaEndpoint: string; // e.g., "https://ex-am-ple.solana-mainnet.quiknode.pro/123456/"
@@ -95,53 +119,72 @@ this.usdcBalance
 
 
     
-public  tokenLookup = async () => {
+private  tokenLookup = async (inputToken: string) => {
 
 
 
     const tokensPath: string = "./JupiterTokens.json"
-    let config = {
-        method: 'get',
-        maxBodyLength: Infinity,
-        url: 'https://quote-api.jup.ag/v6/tokens',
-        headers: { 
-          'Accept': 'application/json'
-        }
-      };
+
+
+      let tokenExists = false;
       
-      
-      axios.request(config)
-      .then((response) => {
-        if (!fs.existsSync(tokensPath) ){
-        fs.writeFileSync(tokensPath, JSON.stringify(response.data))
-        }
+      if (fs.existsSync(tokensPath)) {
+        const data = fs.readFileSync(tokensPath, 'utf8');
+        const tokens = JSON.parse(data);
 
-
-        const data = JSON.stringify(fs.readFileSync(tokensPath))
-        const tokens = JSON.parse(data)
-
-        const tokenList = new Set(tokens)
-        if (tokenList.has(this.inputMint)) {
-            console.log("Token approved with Jupiter API ✅");
-    
-        }
-
-        else {
-            throw new Error("Token does not exist on Jupiter DEX");
-            process.exit(1); // Optional: terminate the program
-        }
+        const tokenList = new Set(tokens);
+       console.log(tokenList)
+        if (tokenList.has(inputToken)) {
+            console.log("Token found locally and approved ✅");
+            tokenExists = true;
             
+        }
 
-    })
-    .catch((error) => {
-console.log("Error fetching Tokens on Jupiter Dex ")
+    
+        
 
-    })
-      
+
+try {
+    if (!tokenExists)
+         {
+
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'https://quote-api.jup.ag/v6/tokens',
+                headers: { 
+                  'Accept': 'application/json'
+                }
+              };
+    
+      const response = await axios.request(config);
+      const tokens = await response.data;
+
+      // Cache the tokens locally if the file does not exist
+      if (!fs.existsSync(tokensPath)) {
+          fs.writeFileSync(tokensPath, JSON.stringify(tokens));
+      }
+
+      // Check if the token exists in the fetched tokens
+      const tokenList = new Set(tokens.map((token: any) => token.address));
+      if (tokenList.has(inputToken)) {
+          console.log("Token approved with Jupiter API ✅");
+      } else {
+          throw new Error("Token does not exist on Jupiter DEX");
+      }
+
+  } }
+  
+  catch (error) {
+
+      throw new Error("Failed to fetch tokens from API");
+  }
+}
+    
   
  
 }
-    
+
         
 
 
@@ -150,10 +193,12 @@ console.log("Error fetching Tokens on Jupiter Dex ")
 
 
     async init(): Promise<void> {
+
         console.log(`🤖 Initiating arb bot for wallet: ${this.wallet.publicKey.toBase58()}.`)
+        
         await this.refreshBalances();
+       await this.tokenLookup(tokenValue)
         console.log(this.solBalance)
-        await this.tokenLookup()
         if (this.solBalance === 0 || undefined) {
 
             throw new Error("Cannot find Solana in given wallet")
