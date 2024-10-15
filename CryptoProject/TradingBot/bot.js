@@ -52,7 +52,22 @@ var spl_token_1 = require("@solana/spl-token");
 var fs = require("fs");
 var path = require("path");
 var axios_1 = require("axios");
-var index_1 = require("./index");
+var prompt = require("prompt-sync");
+var getTokenInput = function () {
+    // //this is a public method
+    //  (like used in AP Comp Sci in HighSchool   
+    //     that gets user input then returns that 
+    //     value into a parameter for the bot in
+    //      the infterface )
+    var input = prompt();
+    var token = input("✅Please enter a valid token✅");
+    if (!token || token == null || token.length !== 44) {
+        console.log(Error, "Invalid token ❌");
+        throw new Error;
+    }
+    return token;
+};
+var tokenValue = getTokenInput(); // This gets the user input
 var SwapToken;
 (function (SwapToken) {
     SwapToken[SwapToken["SOL"] = 0] = "SOL";
@@ -61,7 +76,7 @@ var SwapToken;
 var ArbBot = /** @class */ (function () {
     function ArbBot(config) {
         var _this = this;
-        this.inputMint = new web3_js_1.PublicKey(index_1.tokenValue);
+        this.inputMint = new web3_js_1.PublicKey(tokenValue);
         //takes in a string value that the token input provides. 
         // this the input mint that you want to use, so you can choose any crypto 
         // currency with respect to what is insiede the Jupiter
@@ -73,39 +88,58 @@ var ArbBot = /** @class */ (function () {
         this.lastCheck = 0;
         this.targetGainPercentage = 1;
         this.waitingForConfirmation = false;
-        this.tokenLookup = function () { return __awaiter(_this, void 0, void 0, function () {
-            var tokensPath, config;
-            var _this = this;
+        this.tokenLookup = function (inputToken) { return __awaiter(_this, void 0, void 0, function () {
+            var tokensPath, tokenExists, data, tokens, tokenList, config, response, tokens_1, tokenList_1, error_1;
             return __generator(this, function (_a) {
-                tokensPath = "./JupiterTokens.json";
-                config = {
-                    method: 'get',
-                    maxBodyLength: Infinity,
-                    url: 'https://quote-api.jup.ag/v6/tokens',
-                    headers: {
-                        'Accept': 'application/json'
-                    }
-                };
-                axios_1.default.request(config)
-                    .then(function (response) {
-                    if (!fs.existsSync(tokensPath)) {
-                        fs.writeFileSync(tokensPath, JSON.stringify(response.data));
-                    }
-                    var data = JSON.stringify(fs.readFileSync(tokensPath));
-                    var tokens = JSON.parse(data);
-                    var tokenList = new Set(tokens);
-                    if (tokenList.has(_this.inputMint)) {
-                        console.log("Token approved with Jupiter API ✅");
-                    }
-                    else {
-                        throw new Error("Token does not exist on Jupiter DEX");
-                        process.exit(1); // Optional: terminate the program
-                    }
-                })
-                    .catch(function (error) {
-                    console.log("Error fetching Tokens on Jupiter Dex ");
-                });
-                return [2 /*return*/];
+                switch (_a.label) {
+                    case 0:
+                        tokensPath = "./JupiterTokens.json";
+                        tokenExists = false;
+                        if (!fs.existsSync(tokensPath)) return [3 /*break*/, 6];
+                        data = fs.readFileSync(tokensPath, 'utf8');
+                        tokens = JSON.parse(data);
+                        tokenList = new Set(tokens);
+                        console.log(tokenList);
+                        if (tokenList.has(inputToken)) {
+                            console.log("Token found locally and approved ✅");
+                            tokenExists = true;
+                        }
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 5, , 6]);
+                        if (!!tokenExists) return [3 /*break*/, 4];
+                        config = {
+                            method: 'get',
+                            maxBodyLength: Infinity,
+                            url: 'https://quote-api.jup.ag/v6/tokens',
+                            headers: {
+                                'Accept': 'application/json'
+                            }
+                        };
+                        return [4 /*yield*/, axios_1.default.request(config)];
+                    case 2:
+                        response = _a.sent();
+                        return [4 /*yield*/, response.data];
+                    case 3:
+                        tokens_1 = _a.sent();
+                        // Cache the tokens locally if the file does not exist
+                        if (!fs.existsSync(tokensPath)) {
+                            fs.writeFileSync(tokensPath, JSON.stringify(tokens_1));
+                        }
+                        tokenList_1 = new Set(tokens_1.map(function (token) { return token.address; }));
+                        if (tokenList_1.has(inputToken)) {
+                            console.log("Token approved with Jupiter API ✅");
+                        }
+                        else {
+                            throw new Error("Token does not exist on Jupiter DEX");
+                        }
+                        _a.label = 4;
+                    case 4: return [3 /*break*/, 6];
+                    case 5:
+                        error_1 = _a.sent();
+                        throw new Error("Failed to fetch tokens from API");
+                    case 6: return [2 /*return*/];
+                }
             });
         }); };
         var solanaEndpoint = config.solanaEndpoint, metisEndpoint = config.metisEndpoint, secretKey = config.secretKey, targetGainPercentage = config.targetGainPercentage, checkInterval = config.checkInterval, initialInputToken = config.initialInputToken, initialInputAmount = config.initialInputAmount, firstTradePrice = config.firstTradePrice;
@@ -136,10 +170,10 @@ var ArbBot = /** @class */ (function () {
                         return [4 /*yield*/, this.refreshBalances()];
                     case 1:
                         _a.sent();
-                        console.log(this.solBalance);
-                        return [4 /*yield*/, this.tokenLookup()];
+                        return [4 /*yield*/, this.tokenLookup(tokenValue)];
                     case 2:
                         _a.sent();
+                        console.log(this.solBalance);
                         if (this.solBalance === 0 || undefined) {
                             throw new Error("Cannot find Solana in given wallet");
                         }
@@ -152,7 +186,7 @@ var ArbBot = /** @class */ (function () {
     };
     ArbBot.prototype.refreshBalances = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var results, solBalanceResult, usdcBalanceResult, error_1;
+            var results, solBalanceResult, usdcBalanceResult, error_2;
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -183,8 +217,8 @@ var ArbBot = /** @class */ (function () {
                         }
                         return [3 /*break*/, 3];
                     case 2:
-                        error_1 = _b.sent();
-                        console.error('Unexpected error during balance refresh:', error_1);
+                        error_2 = _b.sent();
+                        console.error('Unexpected error during balance refresh:', error_2);
                         return [3 /*break*/, 3];
                     case 3: return [2 /*return*/];
                 }
@@ -194,7 +228,7 @@ var ArbBot = /** @class */ (function () {
     ArbBot.prototype.initiatePriceWatch = function () {
         var _this = this;
         this.priceWatchIntervalId = setInterval(function () { return __awaiter(_this, void 0, void 0, function () {
-            var currentTime, quote, error_2;
+            var currentTime, quote, error_3;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -214,8 +248,8 @@ var ArbBot = /** @class */ (function () {
                         this.evaluateQuoteAndSwap(quote);
                         return [3 /*break*/, 4];
                     case 3:
-                        error_2 = _a.sent();
-                        console.error('Error getting quote:', error_2);
+                        error_3 = _a.sent();
+                        console.error('Error getting quote:', error_3);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
@@ -224,7 +258,7 @@ var ArbBot = /** @class */ (function () {
     };
     ArbBot.prototype.getQuote = function (quoteRequest) {
         return __awaiter(this, void 0, void 0, function () {
-            var quote, error_3, _a, _b;
+            var quote, error_4, _a, _b;
             return __generator(this, function (_c) {
                 switch (_c.label) {
                     case 0:
@@ -237,15 +271,15 @@ var ArbBot = /** @class */ (function () {
                         }
                         return [2 /*return*/, quote];
                     case 2:
-                        error_3 = _c.sent();
-                        if (!(error_3 instanceof api_1.ResponseError)) return [3 /*break*/, 4];
+                        error_4 = _c.sent();
+                        if (!(error_4 instanceof api_1.ResponseError)) return [3 /*break*/, 4];
                         _b = (_a = console).log;
-                        return [4 /*yield*/, error_3.response.json()];
+                        return [4 /*yield*/, error_4.response.json()];
                     case 3:
                         _b.apply(_a, [_c.sent()]);
                         return [3 /*break*/, 5];
                     case 4:
-                        console.error(error_3);
+                        console.error(error_4);
                         _c.label = 5;
                     case 5: throw new Error('Unable to find quote');
                     case 6: return [2 /*return*/];
@@ -255,7 +289,7 @@ var ArbBot = /** @class */ (function () {
     };
     ArbBot.prototype.evaluateQuoteAndSwap = function (quote) {
         return __awaiter(this, void 0, void 0, function () {
-            var difference, error_4;
+            var difference, error_5;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -271,8 +305,8 @@ var ArbBot = /** @class */ (function () {
                         _a.sent();
                         return [3 /*break*/, 4];
                     case 3:
-                        error_4 = _a.sent();
-                        console.error('Error executing swap:', error_4);
+                        error_5 = _a.sent();
+                        console.error('Error executing swap:', error_5);
                         return [3 /*break*/, 4];
                     case 4: return [2 /*return*/];
                 }
@@ -327,7 +361,7 @@ var ArbBot = /** @class */ (function () {
     ;
     ArbBot.prototype.executeSwap = function (route) {
         return __awaiter(this, void 0, void 0, function () {
-            var _a, computeBudgetInstructions, setupInstructions, swapInstruction, cleanupInstruction, addressLookupTableAddresses, instructions, addressLookupTableAccounts, _b, blockhash, lastValidBlockHeight, messageV0, transaction, rawTransaction, txid, confirmation, error_5, _c, _d;
+            var _a, computeBudgetInstructions, setupInstructions, swapInstruction, cleanupInstruction, addressLookupTableAddresses, instructions, addressLookupTableAccounts, _b, blockhash, lastValidBlockHeight, messageV0, transaction, rawTransaction, txid, confirmation, error_6, _c, _d;
             return __generator(this, function (_e) {
                 switch (_e.label) {
                     case 0:
@@ -376,15 +410,15 @@ var ArbBot = /** @class */ (function () {
                         _e.sent();
                         return [3 /*break*/, 12];
                     case 7:
-                        error_5 = _e.sent();
-                        if (!(error_5 instanceof api_1.ResponseError)) return [3 /*break*/, 9];
+                        error_6 = _e.sent();
+                        if (!(error_6 instanceof api_1.ResponseError)) return [3 /*break*/, 9];
                         _d = (_c = console).log;
-                        return [4 /*yield*/, error_5.response.json()];
+                        return [4 /*yield*/, error_6.response.json()];
                     case 8:
                         _d.apply(_c, [_e.sent()]);
                         return [3 /*break*/, 10];
                     case 9:
-                        console.error(error_5);
+                        console.error(error_6);
                         _e.label = 10;
                     case 10: throw new Error('Unable to execute swap');
                     case 11:
