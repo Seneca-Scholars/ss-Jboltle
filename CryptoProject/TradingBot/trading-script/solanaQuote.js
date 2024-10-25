@@ -2,15 +2,14 @@
 import  axios from 'axios';
 import * as dotenv from "dotenv";
 
-import fs from 'fs';
 
+
+
+export const  getSolanaQuote = async ()  => {
 dotenv.config({
     path: ".env",
-  });
-
-
-  const getSolanaQuote = async () => {
-
+      });
+    
 
         try {
               const response = await axios.get('https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=SOL', {
@@ -33,8 +32,7 @@ return USD_QUOTE
             
             catch(error) {
             console.log("Data request failed")
-    }
+                        }
 
 }
 
-getSolanaQuote()
