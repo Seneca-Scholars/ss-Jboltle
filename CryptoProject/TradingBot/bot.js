@@ -50,7 +50,6 @@ var web3_js_1 = require("@solana/web3.js");
 var api_1 = require("@jup-ag/api");
 var spl_token_1 = require("@solana/spl-token");
 var fs = require("fs");
-var path = require("path");
 var axios_1 = require("axios");
 var prompt = require("prompt-sync");
 var getTokenInput = function () {
@@ -89,25 +88,19 @@ var ArbBot = /** @class */ (function () {
         this.targetGainPercentage = 1;
         this.waitingForConfirmation = false;
         this.tokenLookup = function (inputToken) { return __awaiter(_this, void 0, void 0, function () {
-            var tokensPath, tokenExists, data, tokens, tokenList, config, response, tokens_1, tokenList_1, error_1;
+            var tokensPath, data, tokens, tokenList, config, response, tokens_1, tokenList_1, error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         tokensPath = "./JupiterTokens.json";
-                        tokenExists = false;
-                        if (!fs.existsSync(tokensPath)) return [3 /*break*/, 6];
+                        if (!fs.existsSync(tokensPath)) return [3 /*break*/, 7];
                         data = fs.readFileSync(tokensPath, 'utf8');
                         tokens = JSON.parse(data);
                         tokenList = new Set(tokens);
-                        console.log(tokenList);
-                        if (tokenList.has(inputToken)) {
-                            console.log("Token found locally and approved ✅");
-                            tokenExists = true;
-                        }
+                        if (!!tokenList.has(inputToken)) return [3 /*break*/, 6];
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 5, , 6]);
-                        if (!!tokenExists) return [3 /*break*/, 4];
+                        _a.trys.push([1, 4, , 5]);
                         config = {
                             method: 'get',
                             maxBodyLength: Infinity,
@@ -133,12 +126,15 @@ var ArbBot = /** @class */ (function () {
                         else {
                             throw new Error("Token does not exist on Jupiter DEX");
                         }
-                        _a.label = 4;
-                    case 4: return [3 /*break*/, 6];
-                    case 5:
+                        return [3 /*break*/, 5];
+                    case 4:
                         error_1 = _a.sent();
                         throw new Error("Failed to fetch tokens from API");
-                    case 6: return [2 /*return*/];
+                    case 5: return [3 /*break*/, 7];
+                    case 6:
+                        console.log("Token found locally and approved ✅");
+                        _a.label = 7;
+                    case 7: return [2 /*return*/];
                 }
             });
         }); };
@@ -457,7 +453,7 @@ var ArbBot = /** @class */ (function () {
                     txId: txId,
                     timestamp: timestamp,
                 };
-                filePath = path.join(__dirname, 'trades.json');
+                filePath = ('./trades.json');
                 try {
                     if (!fs.existsSync(filePath)) {
                         fs.writeFileSync(filePath, JSON.stringify([logEntry], null, 2), 'utf-8');
@@ -487,7 +483,7 @@ var ArbBot = /** @class */ (function () {
         setTimeout(function () {
             console.log('Bot has been terminated.');
             process.exit(1);
-        }, 1000);
+        }, 5000);
     };
     ArbBot.prototype.instructionDataToTransactionInstruction = function (instruction) {
         if (instruction === null || instruction === undefined)

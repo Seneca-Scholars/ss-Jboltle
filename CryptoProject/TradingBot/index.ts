@@ -43,7 +43,7 @@ async function main() {
         solanaEndpoint: process.env.SOLANA_ENDPOINT ?? defaultConfig.solanaEndpoint,
         metisEndpoint: process.env.METIS_ENDPOINT ?? defaultConfig.jupiter,
         secretKey: decodedSecretKey,
-        firstTradePrice: 0.01 * LAMPORTS_PER_SOL,
+        firstTradePrice: 0.001 * LAMPORTS_PER_SOL,
         targetGainPercentage: 10,
         initialInputToken: SwapToken.SOL,
         initialInputAmount: 100_000_000,

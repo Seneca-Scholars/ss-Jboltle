@@ -20,7 +20,7 @@ const  getTokenInput  = () => {
     const token : string = input ("✅Please enter a valid token✅")
     
     
-    if (!token || token == null || token.length !== 44) {
+    if (!token || token === null || token.length !== 44) {
         
         console.log(Error , "Invalid token ❌")
         throw new Error 
@@ -65,7 +65,6 @@ interface LogSwapArgs {
 }
 
 export class ArbBot {
-    
 
 
     private solanaConnection: Connection;
@@ -126,71 +125,67 @@ private  tokenLookup = async (inputToken: string) => {
     const tokensPath: string = "./JupiterTokens.json"
 
 
-      let tokenExists = false;
       
       if (fs.existsSync(tokensPath)) {
         const data = fs.readFileSync(tokensPath, 'utf8');
         const tokens = JSON.parse(data);
 
         const tokenList = new Set(tokens);
-       console.log(tokenList)
-        if (tokenList.has(inputToken)) {
+       if (!tokenList.has(inputToken)) {
+
+
+
+
+        try {
+            {
+   
+               let config = {
+                   method: 'get',
+                   maxBodyLength: Infinity,
+                   url: 'https://quote-api.jup.ag/v6/tokens',
+                   headers: { 
+                     'Accept': 'application/json'
+                   }
+                 };
+       
+         const response = await axios.request(config);
+         const tokens = await response.data;
+   
+         // Cache the tokens locally if the file does not exist
+         if (!fs.existsSync(tokensPath)) {
+             fs.writeFileSync(tokensPath, JSON.stringify(tokens));
+         }
+   
+         // Check if the token exists in the fetched tokens
+         const tokenList = new Set(tokens.map((token: any) => token.address));
+         if (tokenList.has(inputToken)) {
+             console.log("Token approved with Jupiter API ✅");
+         } else {
+             throw new Error("Token does not exist on Jupiter DEX");
+         }
+        
+       
+        }
+    }
+     catch (error) {
+   
+         throw new Error("Failed to fetch tokens from API");
+     }
+   
+       
+     
+    
+   
+     
+   
+}
+        else {
             console.log("Token found locally and approved ✅");
-            tokenExists = true;
             
         }
 
-    
-        
-
-
-try {
-    if (!tokenExists)
-         {
-
-            let config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'https://quote-api.jup.ag/v6/tokens',
-                headers: { 
-                  'Accept': 'application/json'
-                }
-              };
-    
-      const response = await axios.request(config);
-      const tokens = await response.data;
-
-      // Cache the tokens locally if the file does not exist
-      if (!fs.existsSync(tokensPath)) {
-          fs.writeFileSync(tokensPath, JSON.stringify(tokens));
-      }
-
-      // Check if the token exists in the fetched tokens
-      const tokenList = new Set(tokens.map((token: any) => token.address));
-      if (tokenList.has(inputToken)) {
-          console.log("Token approved with Jupiter API ✅");
-      } else {
-          throw new Error("Token does not exist on Jupiter DEX");
-      }
-
-  } }
-  
-  catch (error) {
-
-      throw new Error("Failed to fetch tokens from API");
-  }
+    }  
 }
-    
-  
- 
-}
-
-        
-
-
-        
-        
-
 
     async init(): Promise<void> {
 
@@ -413,7 +408,7 @@ try {
             timestamp,
         };
 
-        const filePath = path.join(__dirname, 'trades.json');
+        const filePath = ('./trades.json');
 
         try {
             if (!fs.existsSync(filePath)) {
@@ -440,7 +435,7 @@ try {
         setTimeout(() => {
             console.log('Bot has been terminated.');
             process.exit(1);
-        }, 1000);
+        }, 5000);
     }
 
     private instructionDataToTransactionInstruction (
