@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+      "module": "ESNext",
+      "target": "es2022",
+      "lib": ["es2022", "DOM"],
+      "moduleResolution": "node",
+      "esModuleInterop": true,  // Enable this flag
+      "skipLibCheck": true,     // Optional: Ignore library check errors
+      "forceConsistentCasingInFileNames": true,
+      "strict": true
+    }
+  }
+  

@@ -27,9 +27,7 @@ export function GoogleMaps() {
     setMap(map)
   }, [])
 
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null)
-  }, [])
+
 
   return isLoaded ? (
       <GoogleMap

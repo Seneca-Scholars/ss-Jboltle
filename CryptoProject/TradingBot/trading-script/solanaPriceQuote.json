@@ -1,0 +1,424 @@
+{
+  "status": {
+    "timestamp": "2024-10-25T06:06:22.497Z",
+    "error_code": 0,
+    "error_message": null,
+    "elapsed": 15,
+    "credit_count": 1,
+    "notice": null
+  },
+  "data": {
+    "SOL": [
+      {
+        "id": 5426,
+        "name": "Solana",
+        "symbol": "SOL",
+        "slug": "solana",
+        "num_market_pairs": 774,
+        "date_added": "2020-04-10T00:00:00.000Z",
+        "tags": [
+          { "slug": "pos", "name": "PoS", "category": "ALGORITHM" },
+          { "slug": "platform", "name": "Platform", "category": "CATEGORY" },
+          {
+            "slug": "solana-ecosystem",
+            "name": "Solana Ecosystem",
+            "category": "PLATFORM"
+          },
+          {
+            "slug": "cms-holdings-portfolio",
+            "name": "CMS Holdings Portfolio",
+            "category": "CATEGORY"
+          },
+          {
+            "slug": "kenetic-capital-portfolio",
+            "name": "Kenetic Capital Portfolio",
+            "category": "CATEGORY"
+          },
+          {
+            "slug": "alameda-research-portfolio",
+            "name": "Alameda Research Portfolio",
+            "category": "CATEGORY"
+          },
+          {
+            "slug": "multicoin-capital-portfolio",
+            "name": "Multicoin Capital Portfolio",
+            "category": "CATEGORY"
+          },
+          {
+            "slug": "okx-ventures-portfolio",
+            "name": "OKX Ventures Portfolio",
+            "category": "CATEGORY"
+          },
+          { "slug": "layer-1", "name": "Layer 1", "category": "CATEGORY" },
+          {
+            "slug": "ftx-bankruptcy-estate",
+            "name": "FTX Bankruptcy Estate ",
+            "category": "CATEGORY"
+          },
+          {
+            "slug": "sec-security-token",
+            "name": "SEC Security Token",
+            "category": "CATEGORY"
+          },
+          {
+            "slug": "alleged-sec-securities",
+            "name": "Alleged SEC Securities",
+            "category": "CATEGORY"
+          },
+          {
+            "slug": "cmc-crypto-awards-2024",
+            "name": "CMC Crypto Awards 2024",
+            "category": "CATEGORY"
+          }
+        ],
+        "max_supply": null,
+        "circulating_supply": 470089741.567012,
+        "total_supply": 587109373.798866,
+        "is_active": 1,
+        "infinite_supply": true,
+        "platform": null,
+        "cmc_rank": 5,
+        "is_fiat": 0,
+        "self_reported_circulating_supply": null,
+        "self_reported_market_cap": null,
+        "tvl_ratio": null,
+        "last_updated": "2024-10-25T06:04:00.000Z",
+        "quote": {
+          "USD": {
+            "price": 173.59577621824326,
+            "volume_24h": 3380488932.027762,
+            "volume_change_24h": -18.3453,
+            "percent_change_1h": 0.536256,
+            "percent_change_24h": 0.1933746,
+            "percent_change_7d": 13.41632849,
+            "percent_change_30d": 15.49909472,
+            "percent_change_60d": 8.78096286,
+            "percent_change_90d": -5.62236814,
+            "market_cap": 81605593579.55882,
+            "market_cap_dominance": 3.5318,
+            "fully_diluted_market_cap": 101919707469.62,
+            "tvl": null,
+            "last_updated": "2024-10-25T06:04:00.000Z"
+          }
+        }
+      },
+      {
+        "id": 28825,
+        "name": "SonicObamaLockheedMartin69Inu",
+        "symbol": "SOL",
+        "slug": "sonicobamalockheedmartin69inu",
+        "num_market_pairs": 3,
+        "date_added": "2023-12-23T03:39:17.000Z",
+        "tags": [{ "slug": "memes", "name": "Memes", "category": "INDUSTRY" }],
+        "max_supply": null,
+        "circulating_supply": 0,
+        "total_supply": 399650218335316,
+        "platform": {
+          "id": 5426,
+          "name": "Solana",
+          "symbol": "SOL",
+          "slug": "solana",
+          "token_address": "NLBLjgKvSVtiporRdVEcyssTyr5oPRmjeajVJ4EGW9B"
+        },
+        "is_active": 1,
+        "infinite_supply": false,
+        "cmc_rank": 6582,
+        "is_fiat": 0,
+        "self_reported_circulating_supply": 399650218335316,
+        "self_reported_market_cap": 68227.87399639392,
+        "tvl_ratio": null,
+        "last_updated": "2024-10-25T06:05:00.000Z",
+        "quote": {
+          "USD": {
+            "price": 1.70718970905576e-10,
+            "volume_24h": 332.75762276,
+            "volume_change_24h": -17.3109,
+            "percent_change_1h": 0,
+            "percent_change_24h": 0.61736886,
+            "percent_change_7d": -5.30687594,
+            "percent_change_30d": 122.49518668,
+            "percent_change_60d": 64.92871927,
+            "percent_change_90d": 90.72253321,
+            "market_cap": 0,
+            "market_cap_dominance": 0,
+            "fully_diluted_market_cap": 68227.87,
+            "tvl": null,
+            "last_updated": "2024-10-25T06:05:00.000Z"
+          }
+        }
+      },
+      {
+        "id": 16116,
+        "name": "Wrapped Solana",
+        "symbol": "SOL",
+        "slug": "wrapped-solana",
+        "num_market_pairs": 6350,
+        "date_added": "2021-12-16T04:30:23.000Z",
+        "tags": [
+          {
+            "slug": "rehypothecated-crypto",
+            "name": "Rehypothecated Crypto",
+            "category": "CATEGORY"
+          }
+        ],
+        "max_supply": null,
+        "circulating_supply": 1231718.44752151,
+        "total_supply": 1231718.44752151,
+        "platform": {
+          "id": 5426,
+          "name": "Solana",
+          "symbol": "SOL",
+          "slug": "solana",
+          "token_address": "So11111111111111111111111111111111111111112"
+        },
+        "is_active": 1,
+        "infinite_supply": false,
+        "cmc_rank": 9740,
+        "is_fiat": 0,
+        "self_reported_circulating_supply": null,
+        "self_reported_market_cap": null,
+        "tvl_ratio": null,
+        "last_updated": "2024-10-25T06:04:00.000Z",
+        "quote": {
+          "USD": {
+            "price": 173.57499853323014,
+            "volume_24h": 1721713984.0698235,
+            "volume_change_24h": -11.2566,
+            "percent_change_1h": 0.29618451,
+            "percent_change_24h": 0.3201441,
+            "percent_change_7d": 13.50437273,
+            "percent_change_30d": 15.37255374,
+            "percent_change_60d": 8.65952648,
+            "percent_change_90d": -5.5921516,
+            "market_cap": 213795527.72189862,
+            "market_cap_dominance": 0,
+            "fully_diluted_market_cap": 213795527.72,
+            "tvl": null,
+            "last_updated": "2024-10-25T06:04:00.000Z"
+          }
+        }
+      },
+      {
+        "id": 591,
+        "name": "Solcoin",
+        "symbol": "SOL",
+        "slug": "solcoin",
+        "num_market_pairs": 0,
+        "date_added": "2014-09-07T00:00:00.000Z",
+        "tags": [
+          { "slug": "mineable", "name": "Mineable", "category": "OTHERS" }
+        ],
+        "max_supply": null,
+        "circulating_supply": null,
+        "total_supply": null,
+        "is_active": 0,
+        "infinite_supply": false,
+        "platform": null,
+        "cmc_rank": null,
+        "is_fiat": 0,
+        "self_reported_circulating_supply": null,
+        "self_reported_market_cap": null,
+        "tvl_ratio": null,
+        "last_updated": "2015-05-31T16:29:17.000Z",
+        "quote": {
+          "USD": {
+            "price": null,
+            "volume_24h": 0,
+            "volume_change_24h": 0,
+            "percent_change_1h": 0,
+            "percent_change_24h": 0,
+            "percent_change_7d": 0,
+            "percent_change_30d": 0,
+            "percent_change_60d": 0,
+            "percent_change_90d": 0,
+            "market_cap": null,
+            "market_cap_dominance": 0,
+            "fully_diluted_market_cap": 0,
+            "tvl": null,
+            "last_updated": "2015-05-31T16:29:17.000Z"
+          }
+        }
+      },
+      {
+        "id": 3333,
+        "name": "Sola Token",
+        "symbol": "SOL",
+        "slug": "sola-token",
+        "num_market_pairs": 0,
+        "date_added": "2018-09-24T00:00:00.000Z",
+        "tags": [],
+        "max_supply": null,
+        "circulating_supply": 0,
+        "total_supply": null,
+        "platform": {
+          "id": 1027,
+          "name": "Ethereum",
+          "symbol": "ETH",
+          "slug": "ethereum",
+          "token_address": "0x1f54638b7737193ffd86c19ec51907a7c41755d8"
+        },
+        "is_active": 0,
+        "infinite_supply": false,
+        "cmc_rank": null,
+        "is_fiat": 0,
+        "self_reported_circulating_supply": null,
+        "self_reported_market_cap": null,
+        "tvl_ratio": null,
+        "last_updated": "2020-07-07T02:17:23.000Z",
+        "quote": {
+          "USD": {
+            "price": null,
+            "volume_24h": 0,
+            "volume_change_24h": 0,
+            "percent_change_1h": 0,
+            "percent_change_24h": 0,
+            "percent_change_7d": 0,
+            "percent_change_30d": 0,
+            "percent_change_60d": 0,
+            "percent_change_90d": 0,
+            "market_cap": null,
+            "market_cap_dominance": 0,
+            "fully_diluted_market_cap": 0,
+            "tvl": null,
+            "last_updated": "2020-07-07T02:17:23.000Z"
+          }
+        }
+      },
+      {
+        "id": 12003,
+        "name": "SOL RUNE - Rune.Game",
+        "symbol": "SOL",
+        "slug": "sol-rune---rune-game",
+        "num_market_pairs": 4,
+        "date_added": "2021-09-20T21:00:25.000Z",
+        "tags": [],
+        "max_supply": 118852,
+        "circulating_supply": null,
+        "total_supply": null,
+        "platform": {
+          "id": 1839,
+          "name": "BNB Smart Chain (BEP20)",
+          "symbol": "BNB",
+          "slug": "bnb",
+          "token_address": "0x4ffd3b8ba90f5430cda7f4cc4c0a80df3cd0e495"
+        },
+        "is_active": 0,
+        "infinite_supply": false,
+        "cmc_rank": null,
+        "is_fiat": 0,
+        "self_reported_circulating_supply": null,
+        "self_reported_market_cap": null,
+        "tvl_ratio": null,
+        "last_updated": "2022-10-10T18:25:00.000Z",
+        "quote": {
+          "USD": {
+            "price": null,
+            "volume_24h": 0,
+            "volume_change_24h": 0,
+            "percent_change_1h": 0,
+            "percent_change_24h": 0,
+            "percent_change_7d": -0.9199732,
+            "percent_change_30d": -17.24342926,
+            "percent_change_60d": -11.36059494,
+            "percent_change_90d": 126.27800523,
+            "market_cap": null,
+            "market_cap_dominance": 0,
+            "fully_diluted_market_cap": 34886.33,
+            "tvl": null,
+            "last_updated": "2022-10-10T18:25:00.000Z"
+          }
+        }
+      },
+      {
+        "id": 28828,
+        "name": "BonkHoneyHNTMobileSOL",
+        "symbol": "SOL",
+        "slug": "bonkhoneyhntmobilesol",
+        "num_market_pairs": 3,
+        "date_added": "2024-03-07T07:14:34.000Z",
+        "tags": [{ "slug": "memes", "name": "Memes", "category": "INDUSTRY" }],
+        "max_supply": null,
+        "circulating_supply": null,
+        "total_supply": 100000,
+        "platform": {
+          "id": 5426,
+          "name": "Solana",
+          "symbol": "SOL",
+          "slug": "solana",
+          "token_address": "5xehNjwuh8EZL2gtUC2jxapKzc94DDVyoMmpw2SbYrXb"
+        },
+        "is_active": 0,
+        "infinite_supply": false,
+        "cmc_rank": null,
+        "is_fiat": 0,
+        "self_reported_circulating_supply": null,
+        "self_reported_market_cap": null,
+        "tvl_ratio": null,
+        "last_updated": "2024-04-17T01:21:00.000Z",
+        "quote": {
+          "USD": {
+            "price": null,
+            "volume_24h": 0,
+            "volume_change_24h": 0,
+            "percent_change_1h": 0,
+            "percent_change_24h": 0,
+            "percent_change_7d": -3.6898347,
+            "percent_change_30d": -38.61805953,
+            "percent_change_60d": 3342880491849.502,
+            "percent_change_90d": 407298396347.68066,
+            "market_cap": null,
+            "market_cap_dominance": 0,
+            "fully_diluted_market_cap": 5118.83,
+            "tvl": null,
+            "last_updated": "2024-04-17T01:21:00.000Z"
+          }
+        }
+      },
+      {
+        "id": 29905,
+        "name": "Solidify",
+        "symbol": "SOL",
+        "slug": "solidify",
+        "num_market_pairs": 1,
+        "date_added": "2024-03-18T05:30:56.000Z",
+        "tags": [],
+        "max_supply": 200000000,
+        "circulating_supply": null,
+        "total_supply": 200000000,
+        "platform": {
+          "id": 1027,
+          "name": "Ethereum",
+          "symbol": "ETH",
+          "slug": "ethereum",
+          "token_address": "0x88490cE333E3F3AA384e5183836142490600DA8C"
+        },
+        "is_active": 0,
+        "infinite_supply": false,
+        "cmc_rank": null,
+        "is_fiat": 0,
+        "self_reported_circulating_supply": 200000000,
+        "self_reported_market_cap": 0,
+        "tvl_ratio": null,
+        "last_updated": "2024-06-10T01:21:00.000Z",
+        "quote": {
+          "USD": {
+            "price": null,
+            "volume_24h": 0,
+            "volume_change_24h": 0,
+            "percent_change_1h": 0,
+            "percent_change_24h": 0,
+            "percent_change_7d": 0,
+            "percent_change_30d": 15.13550734,
+            "percent_change_60d": -47.55676116,
+            "percent_change_90d": -63.75510455,
+            "market_cap": null,
+            "market_cap_dominance": 0,
+            "fully_diluted_market_cap": 19155.51,
+            "tvl": null,
+            "last_updated": "2024-06-10T01:21:00.000Z"
+          }
+        }
+      }
+    ]
+  }
+}
