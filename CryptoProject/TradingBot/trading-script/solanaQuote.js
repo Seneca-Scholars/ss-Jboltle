@@ -11,7 +11,7 @@ dotenv.config({
       });
     
 
-        try {
+
               const response = await axios.get('https://pro-api.coinmarketcap.com/v2/cryptocurrency/quotes/latest?symbol=SOL', {
                   headers: {
                       'X-CMC_PRO_API_KEY': process.env.SOLANA_PRICE_API_KEY,
@@ -25,14 +25,17 @@ dotenv.config({
                 
 
 
-return USD_QUOTE
+
             
-            } 
+            return USD_QUOTE
             
             
-            catch(error) {
-            console.log("Data request failed")
-                        }
+     
+
+
 
 }
+
+
+console.log(await getSolanaQuote())
 

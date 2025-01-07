@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import "./gameStyling.css";
+import "./pageStyling.css";
 
 
 export const GameComponent = () => {
